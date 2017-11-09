@@ -1,0 +1,61 @@
+<% include ../partials/header.ejs %>
+<div class="container">
+<% var output = [];
+
+if(results.length>0){
+    var object = {
+        Licence: results[0].Licence,
+        company_name: results[0].company_name,
+        contact_info: results[0].contact_info,
+        email: results[0].email,
+        seats: results[0].seats,
+        bus_type: results[0].bus_type
+//        stops: [{
+//            name: results[0].stop,
+//            stop_num: results[0].stop_num
+//        }]
+    };
+
+    var j = 0;
+
+    output.push(object);
+
+    for(var i=1; i<results.length; i++){
+            object = {
+                Licence: results[i].Licence,
+                company_name: results[i].company_name,
+                contact_info: results[i].contact_info,
+                email: results[i].email,
+                seats: results[i].seats,
+                bus_type: results[i].bus_type
+//                stops: [{
+//                    name: results[0].stop,
+//                    stop_num: results[0].stop_num
+//                }]
+            };
+            output.push(object);
+        }
+
+} else{
+
+} %>
+
+<h1>Search Results</h1>
+
+<% output.forEach(function(element){ %>
+<p>Licence : <%= element.Licence %></p>
+<p>Company Name: <%= element.company_name %></p>
+<p>Contact Info: <%= element.contact_info %></p>
+<p>Email: <%= element.email %></p>
+
+
+<button><a href="/buses/<%= element.Licence %>/edit">Edit</a></button>
+
+<form action="/buses/<%= element.Licence %>?_method=DELETE" method="POST" style="display: inline">
+    <button>Delete</button>
+</form>
+
+<hr>
+<% }); %>
+</div>
+<% include ../partials/footer.ejs %>
